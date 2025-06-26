@@ -39,4 +39,19 @@ class PlantViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> fetchPlants() async {
+    notifyListeners();
+    try {
+      _allPlants = await _apiService.getPlants();
+      _displayedPlants = List.from(_allPlants);
+      _errorMessage = null;
+    } catch (e) {
+      _errorMessage = e.toString();
+    }
+    notifyListeners();
+    _checkWateringNeeds();
+  }
+
+
 }
