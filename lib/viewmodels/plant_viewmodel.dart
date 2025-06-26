@@ -27,7 +27,8 @@ class PlantViewModel extends ChangeNotifier {
   void _checkWateringNeeds() {
     bool changed = false;
     for (var plant in _allPlants) {
-      final difference = DateTime.now().difference(plant.lastWatered).inSeconds;
+      final difference =
+          DateTime.now().difference(plant.lastWatered).inSeconds;
       if (difference >= plant.wateringFrequencySeconds) {
         if (_plantsNeedingWater.add(plant.id!)) changed = true;
       } else {
@@ -78,7 +79,7 @@ class PlantViewModel extends ChangeNotifier {
         return nameMatch;
       }).toList();
     }
-    fetchPlants();
+    notifyListeners();
   }
 
   Future<bool> addPlant({
