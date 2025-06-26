@@ -113,4 +113,22 @@ class PlantViewModel extends ChangeNotifier {
     return success;
   }
 
+  Future<void> deletePlant(int plantId) async {
+    final plantIndex = _allPlants.indexWhere((p) => p.id == plantId);
+    if (plantIndex == -1) return;
+
+    final plantToRemove = _allPlants[plantIndex];
+
+    _allPlants.removeAt(plantIndex);
+    notifyListeners();
+
+    try {
+      await _apiService.deletePlant(plantId);
+      _allPlants.removeWhere((p) => p.id == plantId);
+      notifyListeners();
+    } catch (e) {
+      _allPlants.insert(plantIndex, plantToRemove);
+      notifyListeners();
+    }
+  }
 }
