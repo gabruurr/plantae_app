@@ -27,8 +27,7 @@ class PlantViewModel extends ChangeNotifier {
   void _checkWateringNeeds() {
     bool changed = false;
     for (var plant in _allPlants) {
-      final difference =
-          DateTime.now().difference(plant.lastWatered).inSeconds;
+      final difference = DateTime.now().difference(plant.lastWatered).inSeconds;
       if (difference >= plant.wateringFrequencySeconds) {
         if (_plantsNeedingWater.add(plant.id!)) changed = true;
       } else {
@@ -64,6 +63,22 @@ class PlantViewModel extends ChangeNotifier {
     }
     notifyListeners();
     _checkWateringNeeds();
+  }
+
+  void searchPlants(String query) {
+    if (query.isEmpty) {
+      _displayedPlants = List.from(_allPlants);
+    } else {
+      final lowerCaseQuery = query.toLowerCase();
+
+      _displayedPlants = _allPlants.where((plant) {
+        final nameMatch = plant.name.toLowerCase().contains(lowerCaseQuery);
+        final speciesMatch =
+            plant.species.toLowerCase().contains(lowerCaseQuery);
+        return nameMatch;
+      }).toList();
+    }
+    fetchPlants();
   }
 
   Future<bool> addPlant({
