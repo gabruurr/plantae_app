@@ -72,4 +72,16 @@ class ApiService {
       throw Exception('Falha ao atualizar o ultimo dia regado');
     }
   }
+
+  //delte /plants?id=eq.{id}
+  Future<void> deletePlant(int id) async {
+    final response = await http.delete(
+      Uri.parse('$_baseUrl/plants?id=eq.$id'),
+      headers: _headers,
+    );
+
+    if (response.statusCode != 204) {
+      throw Exception('Falha ao apagar planta');
+    }
+  }
 }
