@@ -66,7 +66,6 @@ class PlantViewModel extends ChangeNotifier {
     _checkWateringNeeds();
   }
 
-
   Future<bool> addPlant({
     required String name,
     required String species,
@@ -124,8 +123,10 @@ class PlantViewModel extends ChangeNotifier {
 
       final plantIndexDisplayed =
           _displayedPlants.indexWhere((p) => p.id == plantId);
-     
+      if (plantIndexDisplayed != -1)
+        _displayedPlants[plantIndexDisplayed].lastWatered = newDate;
 
+      _plantsNeedingWater.remove(plantId);
       notifyListeners();
     } catch (e) {
       _errorMessage = "Falha ao regar a planta: $e";
