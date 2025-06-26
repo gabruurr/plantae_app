@@ -74,8 +74,28 @@ class PlantViewModel extends ChangeNotifier {
     required File imageFile,
     required int wateringFrequencySeconds,
   }) async {
-    bool success = true;
-    await _handleApiOperation()
+    bool success = false;
+    await _handleApiOperation(() async {
+      final imageUrl = await _imageService.uploadImage(imageFile);
+      if (imageUrl == null) {
+        throw Exception("Falha no upload da imagem.");
+      }
+
+      final newPlant = Plant(
+        name: name,
+        species: species,
+        imageUrl: imageUrl,
+        lastWatered: DateTime.now().toUtc(),
+        careNotes: careNotes,
+        wateringFrequencySeconds: wateringFrequencySeconds,
+      );
+
+      await _apiService.addPlant(newPlant);
+
+      await fetchPlants();
+
+      success = true;
+    });
     return success;
   }
 }
