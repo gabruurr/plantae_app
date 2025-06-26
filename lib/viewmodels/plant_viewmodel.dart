@@ -40,6 +40,19 @@ class PlantViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> _handleApiOperation(Future<void> Function() operation) async {
+    _errorMessage = null;
+    notifyListeners();
+
+    try {
+      await operation();
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      notifyListeners();
+    }
+  }
+
   Future<void> fetchPlants() async {
     notifyListeners();
     try {
@@ -62,7 +75,7 @@ class PlantViewModel extends ChangeNotifier {
     required int wateringFrequencySeconds,
   }) async {
     bool success = true;
-  
+    await _handleApiOperation()
     return success;
   }
 }
