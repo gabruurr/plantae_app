@@ -46,4 +46,30 @@ class ApiService {
       throw Exception('Falha ao adicionar planta');
     }
   }
+
+  // put /plants?id=eq.{id}
+  Future<void> updatePlant(Plant plant) async {
+    final response = await http.patch(
+      Uri.parse('$_baseUrl/plants?id=eq.${plant.id}'),
+      headers: _headers,
+      body: plant.toJson(),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      throw Exception('Falha ao atualizar plantz');
+    }
+  }
+
+  // patch /plants?id=eq.{id}
+  Future<void> updateLastWatered(int id, DateTime newDate) async {
+    final response = await http.patch(
+      Uri.parse('$_baseUrl/plants?id=eq.$id'),
+      headers: _headers,
+      body: json.encode({'last_watered': newDate.toIso8601String()}),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      throw Exception('Falha ao atualizar o ultimo dia regado');
+    }
+  }
 }
