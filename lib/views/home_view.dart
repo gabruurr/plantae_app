@@ -36,8 +36,27 @@ class HomeView extends StatelessWidget {
                 ),
               ),
             ),
-          ],),
+            Expanded(
+              child: Consumer<PlantViewModel>(
+                builder: (context, vm, child) {
+                  if (vm.isLoading && vm.plants.isEmpty) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (vm.errorMessage != null) {
+                    return Center(
+                        child: Text('Ocorreu um erro: ${vm.errorMessage}'));
+                  }
+
+                  if (vm.plants.isEmpty) {
+                    return const Center(
+                        child: Text('Nenhuma planta encontrada.'));
+                  }
+
+              ),
+            ),
+          ],
+        ),
       ),
     );
-        
-}}
+  }
+}
