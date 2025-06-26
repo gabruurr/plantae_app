@@ -107,6 +107,7 @@ class PlantViewModel extends ChangeNotifier {
       if (index != -1) {
         _allPlants[index] = plantToUpdate;
       }
+      await fetchPlants();
       success = true;
     });
     return success;
