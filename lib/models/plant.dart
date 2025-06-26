@@ -31,4 +31,19 @@ class Plant {
     };
   }
 
+  factory Plant.fromMap(Map<String, dynamic> map) {
+    return Plant(
+      id: map['id']?.toInt(),
+      createdAt:
+          map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
+      name: map['name'] ?? '',
+      species: map['species'] ?? '',
+      imageUrl: map['image_url'] ?? '',
+      lastWatered: DateTime.parse(map['last_watered']),
+      careNotes: map['care_notes'] ?? '',
+      wateringFrequencySeconds:
+          map['watering_frequency_seconds']?.toInt() ?? 60,
+    );
+  }
+
 }
