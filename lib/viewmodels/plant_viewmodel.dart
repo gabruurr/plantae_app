@@ -23,4 +23,20 @@ class PlantViewModel extends ChangeNotifier {
   PlantViewModel() {
     fetchPlants();
   }
+
+  void _checkWateringNeeds() {
+    bool changed = false;
+    for (var plant in _allPlants) {
+      final difference =
+          DateTime.now().difference(plant.lastWatered).inSeconds;
+      if (difference >= plant.wateringFrequencySeconds) {
+        if (_plantsNeedingWater.add(plant.id!)) changed = true;
+      } else {
+        if (_plantsNeedingWater.remove(plant.id!)) changed = true;
+      }
+    }
+    if (changed) {
+      notifyListeners();
+    }
+  }
 }
