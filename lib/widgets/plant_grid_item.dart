@@ -21,9 +21,7 @@ class PlantGridItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Placeholder()));
+              context, MaterialPageRoute(builder: (context) => Placeholder()));
         },
         child: Stack(
           children: [

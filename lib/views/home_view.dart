@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/plant_viewmodel.dart';
+import '../widgets/plant_grid_item.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -66,7 +67,7 @@ class HomeView extends StatelessWidget {
                       itemCount: vm.plants.length,
                       itemBuilder: (context, index) {
                         final plant = vm.plants[index];
-                        return Placeholder();
+                        return PlantGridItem(plant: plant);
                       },
                     ),
                   );
