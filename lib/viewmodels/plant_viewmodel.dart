@@ -76,7 +76,7 @@ class PlantViewModel extends ChangeNotifier {
         final nameMatch = plant.name.toLowerCase().contains(lowerCaseQuery);
         final speciesMatch =
             plant.species.toLowerCase().contains(lowerCaseQuery);
-        return nameMatch;
+        return nameMatch || speciesMatch;
       }).toList();
     }
     notifyListeners();
