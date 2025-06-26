@@ -98,4 +98,18 @@ class PlantViewModel extends ChangeNotifier {
     });
     return success;
   }
+
+  Future<bool> updatePlant(Plant plantToUpdate) async {
+    bool success = false;
+    await _handleApiOperation(() async {
+      await _apiService.updatePlant(plantToUpdate);
+      final index = _allPlants.indexWhere((p) => p.id == plantToUpdate.id);
+      if (index != -1) {
+        _allPlants[index] = plantToUpdate;
+      }
+      success = true;
+    });
+    return success;
+  }
+
 }
