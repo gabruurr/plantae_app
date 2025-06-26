@@ -21,7 +21,7 @@ class PlantDetailView extends StatefulWidget {
 class _PlantDetailViewState extends State<PlantDetailView> {
   Timer? _timer;
   String _countdownText = '';
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
@@ -191,7 +191,7 @@ class _PlantDetailViewState extends State<PlantDetailView> {
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(const SnackBar(
-                                content: Text('Contador resetado!'),
+                                content: Text('Planta regada!'),
                                 backgroundColor: Colors.blue));
                         },
                       ),
