@@ -12,11 +12,13 @@ class PlantViewModel extends ChangeNotifier {
   List<Plant> _allPlants = [];
   List<Plant> _displayedPlants = [];
 
+  bool _isLoading = false;
   String? _errorMessage;
 
   final Set<int> _plantsNeedingWater = {};
 
   List<Plant> get plants => _displayedPlants;
+  bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   Set<int> get plantsNeedingWater => _plantsNeedingWater;
 
