@@ -113,6 +113,26 @@ class PlantViewModel extends ChangeNotifier {
     return success;
   }
 
+  Future<void> updateWateringDate(int plantId) async {
+    try {
+      final newDate = DateTime.now().toUtc();
+
+      await _apiService.updateLastWatered(plantId, newDate);
+
+      final plantIndexAll = _allPlants.indexWhere((p) => p.id == plantId);
+      if (plantIndexAll != -1) _allPlants[plantIndexAll].lastWatered = newDate;
+
+      final plantIndexDisplayed =
+          _displayedPlants.indexWhere((p) => p.id == plantId);
+     
+
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = "Falha ao regar a planta: $e";
+      notifyListeners();
+    }
+  }
+
   Future<void> deletePlant(int plantId) async {
     final plantIndex = _allPlants.indexWhere((p) => p.id == plantId);
     if (plantIndex == -1) return;
