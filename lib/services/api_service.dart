@@ -42,6 +42,8 @@ class ApiService {
       // A resposta contém o objeto criado, incluindo o ID e created_at
       final List<dynamic> data = json.decode(response.body);
       return Plant.fromMap(data.first);
+    } else {
+      throw Exception('Falha ao adicionar planta');
     }
   }
 }
