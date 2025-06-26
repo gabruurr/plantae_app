@@ -52,10 +52,36 @@ class HomeView extends StatelessWidget {
                         child: Text('Nenhuma planta encontrada.'));
                   }
 
+                  return RefreshIndicator(
+                    onRefresh: vm.fetchPlants,
+                    child: GridView.builder(
+                      padding: const EdgeInsets.only(bottom: 90.0),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
+                        childAspectRatio: 0.8,
+                      ),
+                      itemCount: vm.plants.length,
+                      itemBuilder: (context, index) {
+                        final plant = vm.plants[index];
+                        return Placeholder();
+                      },
+                    ),
+                  );
+                },
               ),
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Placeholder()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
