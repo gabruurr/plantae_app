@@ -125,6 +125,7 @@ class PlantViewModel extends ChangeNotifier {
     try {
       await _apiService.deletePlant(plantId);
       _allPlants.removeWhere((p) => p.id == plantId);
+      _displayedPlants.removeWhere((p) => p.id == plantId);
       notifyListeners();
     } catch (e) {
       _allPlants.insert(plantIndex, plantToRemove);
