@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/plant.dart';
 import '../viewmodels/plant_viewmodel.dart';
+import '../views/plant_detail_view.dart';
 
 class PlantGridItem extends StatelessWidget {
   final Plant plant;
@@ -21,7 +22,9 @@ class PlantGridItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Placeholder()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PlantDetailView(plantId: plant.id!)));
         },
         child: Stack(
           children: [
