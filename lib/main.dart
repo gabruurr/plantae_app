@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       create: (context) => PlantViewModel(),
       child: MaterialApp(
         title: 'Plantae',
+        theme: AppTheme.lightTheme,
         home: const HomeView(),
         debugShowCheckedModeBanner: false,
       ),
