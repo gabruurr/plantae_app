@@ -26,60 +26,56 @@ class PlantGridItem extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => PlantDetailView(plantId: plant.id!)));
         },
-        child: Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Hero(
-                    tag: 'plant_image_${plant.id}',
-                    child: Image.network(
-                      plant.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+            Expanded(
+              child: Hero(
+                tag: 'plant_image_${plant.id}',
+                child: Image.network(
+                  plant.imageUrl,
+                  fit: BoxFit.cover,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            plant.name,
-                          ),
-                          Text(
-                            plant.species,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      Text(
+                        plant.name,
                       ),
-                      if (needsWater)
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(192, 18, 16, 16),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(
-                              Icons.water_drop,
-                              color: Colors.lightBlueAccent,
-                              size: 24,
-                            ),
-                          ),
+                      Text(
+                        plant.species,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  if (needsWater)
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(192, 18, 16, 16),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.water_drop,
+                          color: Colors.lightBlueAccent,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ],
         ),
