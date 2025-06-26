@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/plant_viewmodel.dart';
 import '../widgets/plant_grid_item.dart';
+import 'plant_form_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -80,7 +81,7 @@ class HomeView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Placeholder()));
+              MaterialPageRoute(builder: (context) => const PlantFormView()));
         },
         child: const Icon(Icons.add),
       ),
