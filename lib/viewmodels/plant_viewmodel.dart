@@ -62,6 +62,7 @@ class PlantViewModel extends ChangeNotifier {
     } catch (e) {
       _errorMessage = e.toString();
     }
+    _isLoading = false;
     notifyListeners();
     _checkWateringNeeds();
   }
