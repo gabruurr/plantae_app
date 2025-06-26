@@ -19,19 +19,62 @@ class PlantDetailView extends StatefulWidget {
 }
 
 class _PlantDetailViewState extends State<PlantDetailView> {
-  
+  Timer? _timer;
+  String _countdownText = '';
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _startTimer();
+    });
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     super.dispose();
   }
 
-  
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$hours:$minutes:$seconds";
+  }
+
+  void _startTimer() {
+    final viewModel = Provider.of<PlantViewModel>(context, listen: false);
+    final plant =
+        viewModel.plants.firstWhereOrNull((p) => p.id == widget.plantId);
+
+    if (plant == null) return;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      final currentPlant =
+          viewModel.plants.firstWhereOrNull((p) => p.id == widget.plantId);
+      if (currentPlant == null) {
+        timer.cancel();
+        return;
+      }
+
+      final dueDate = currentPlant.lastWatered
+          .add(Duration(seconds: currentPlant.wateringFrequencySeconds));
+
+      final remainingTime = dueDate.difference(DateTime.now());
+
+      setState(() {
+        if (remainingTime.isNegative) {
+          _countdownText = 'Regar agora! 💦';
+        } else {
+          _countdownText = _formatDuration(remainingTime);
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
