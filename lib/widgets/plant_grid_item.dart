@@ -30,12 +30,9 @@ class PlantGridItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Hero(
-                tag: 'plant_image_${plant.id}',
-                child: Image.network(
-                  plant.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+              child: Image.network(
+                plant.imageUrl,
+                fit: BoxFit.cover,
               ),
             ),
             Padding(
