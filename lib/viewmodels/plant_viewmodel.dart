@@ -54,4 +54,15 @@ class PlantViewModel extends ChangeNotifier {
   }
 
 
+  Future<bool> addPlant({
+    required String name,
+    required String species,
+    required String careNotes,
+    required File imageFile,
+    required int wateringFrequencySeconds,
+  }) async {
+    bool success = true;
+  
+    return success;
+  }
 }
