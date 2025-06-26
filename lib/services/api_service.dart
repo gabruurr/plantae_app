@@ -15,6 +15,7 @@ class ApiService {
     'Prefer': 'return=representation',
   };
 
+  // get /plants
   Future<List<Plant>> getPlants() async {
     final response = await http.get(
       Uri.parse('$_baseUrl/plants?select=*&order=created_at.desc'),
@@ -26,6 +27,21 @@ class ApiService {
       return data.map((json) => Plant.fromMap(json)).toList();
     } else {
       throw Exception('Falha ao carregar plantas');
+    }
+  }
+
+  //post /plants
+  Future<Plant> addPlant(Plant plant) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl/plants'),
+      headers: _headers,
+      body: plant.toJson(),
+    );
+
+    if (response.statusCode == 201) {
+      // A resposta contém o objeto criado, incluindo o ID e created_at
+      final List<dynamic> data = json.decode(response.body);
+      return Plant.fromMap(data.first);
     }
   }
 }
