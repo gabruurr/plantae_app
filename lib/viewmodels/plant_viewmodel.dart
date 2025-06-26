@@ -16,6 +16,7 @@ class PlantViewModel extends ChangeNotifier {
   String? _errorMessage;
 
   final Set<int> _plantsNeedingWater = {};
+  Timer? _timer;
 
   List<Plant> get plants => _displayedPlants;
   bool get isLoading => _isLoading;
@@ -24,6 +25,19 @@ class PlantViewModel extends ChangeNotifier {
 
   PlantViewModel() {
     fetchPlants();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _checkWateringNeeds();
+    });
   }
 
   void _checkWateringNeeds() {
