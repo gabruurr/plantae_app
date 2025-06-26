@@ -41,6 +41,7 @@ class PlantViewModel extends ChangeNotifier {
   }
 
   Future<void> _handleApiOperation(Future<void> Function() operation) async {
+    _isLoading = true;
     _errorMessage = null;
     notifyListeners();
 
@@ -49,11 +50,13 @@ class PlantViewModel extends ChangeNotifier {
     } catch (e) {
       _errorMessage = e.toString();
     } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
 
   Future<void> fetchPlants() async {
+    _isLoading = true;
     notifyListeners();
     try {
       _allPlants = await _apiService.getPlants();
