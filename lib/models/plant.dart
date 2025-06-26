@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Plant {
   final int? id;
   final DateTime? createdAt;
@@ -46,4 +48,7 @@ class Plant {
     );
   }
 
+  String toJson() => json.encode(toMap());
+
+  factory Plant.fromJson(String source) => Plant.fromMap(json.decode(source));
 }
