@@ -25,7 +25,7 @@ class ApiService {
       final List<dynamic> data = json.decode(response.body);
       return data.map((json) => Plant.fromMap(json)).toList();
     } else {
-      throw Exception('Failed to load plants');
+      throw Exception('Falha ao carregar plantas');
     }
   }
 }
